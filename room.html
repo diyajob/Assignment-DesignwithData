@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mystery Room - What does it hold?</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+ <body style="background-image: url('images/door.jpg'); background-size: contain; background-position: center;">
+
+<audio id="room-player" loop>
+<source src="audio/forestwind.mp3" type="audio/mp3">
+</audio>
+
+<audio id="room-creak">
+<source src="audio/eeriecreak.mp3" type="audio/mp3">
+</audio>
+
+<main class="container" id="main-container" style="gap: 1.8rem; padding-top: 3rem;">
+<section class="center-stage" style="display: flex; flex-direction: column; gap: 1.5rem;">
+<h1 class="title" style="margin-top: 1rem;">The Mysterious Door</h1>
+<p class="story-text">A light shines through the creak of the door, you move closer to take a look</p>
+
+<div class="visual-box room-choices">
+<button class="atmospheric-btn choice-btn" data-choice="brew">Explore the room</button>
+<button class="atmospheric-btn choice-btn" data-choice="tome">Return to the woods</button>
+</div>
+
+<p id="message">Remember, choose your path wisely.</p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+      let choiceButtons = document.querySelectorAll(".choice-btn");
+      let message = document.getElementById("message");
+      let player = document.getElementById("room-player");
+      let eerieSfx = document.getElementById("room-creak");
+
+      choiceButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+
+        if (player && player.paused) {
+            player.play().catch(() => {});
+          }
+         
+        if (eerieSfx) {
+            eerieSfx.currentTime = 0;
+            eerieSfx.play().catch(() => {});
+          }
+
+        let choice = button.getAttribute("data-choice");
+          
+         if (choice === "brew") {
+    window.location.href = "explore.html";
+
+          } else if (choice === "tome") {
+            message.innerHTML = "The Road disappears behind you. Lost in the woods, you are left with one last option";
+            button.style.borderColor = "#ffffff";
+          }
+        });
+        });
+     </script>
+  </body>
+</html>
